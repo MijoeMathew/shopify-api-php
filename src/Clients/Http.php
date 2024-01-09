@@ -221,7 +221,7 @@ class Http
                     ? $response->getHeaderLine(HttpHeaders::RETRY_AFTER)
                     : Context::$RETRY_TIME_IN_SECONDS;
                 Log::info("Sleeping...".(int)($retryAfter)+1);
-                sleep((int)($retryAfter)+1);
+                sleep(3);
             } else {
                 break;
             }
