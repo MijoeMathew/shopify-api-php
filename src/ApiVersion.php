@@ -23,7 +23,7 @@ class ApiVersion
     /** @var string */
     public const OCTOBER_2023 = "2023-10";
     /** @var string */
-    public const LATEST = self::APRIL_2023;
+    public const LATEST = self::OCTOBER_2023;
 
     private static $ALL_VERSIONS = [
         self::UNSTABLE,
