@@ -221,6 +221,8 @@ class Http
                 $retryAfter = $response->hasHeader(HttpHeaders::RETRY_AFTER)
                     ? $response->getHeaderLine(HttpHeaders::RETRY_AFTER)
                     : Context::$RETRY_TIME_IN_SECONDS;
+
+                $retryAfter = (int)$retryAfter;
                 Log::info("Sleeping...".$retryAfter);
                 sleep($retryAfter);
             } else {
