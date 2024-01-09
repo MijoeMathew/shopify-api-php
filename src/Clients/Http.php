@@ -168,9 +168,7 @@ class Http
         ?int $tries = null,
         string $dataType = self::DATA_TYPE_JSON
     ) {
-        Log::info("Mijoe Mathew Testing ".$tries);
         $maxTries = $tries ?? 2;
-        Log::info($maxTries);
         $version = require dirname(__FILE__) . '/../version.php';
         $userAgentParts = ["Shopify Admin API Library for PHP v$version"];
 
@@ -215,15 +213,11 @@ class Http
             $currentTries++;
 
             $response = HttpResponse::fromResponse($client->sendRequest($request));
-            Log::info("Retry: ".$response->getStatusCode()."::".$response->hasHeader(HttpHeaders::RETRY_AFTER).":::".$response->hasHeader("X-Shopify-Shop-Api-Call-Limit"));
-            Log::info(json_encode($response));
             if (in_array($response->getStatusCode(), self::RETRIABLE_STATUS_CODES)) {
                 $retryAfter = $response->hasHeader(HttpHeaders::RETRY_AFTER)
                     ? $response->getHeaderLine(HttpHeaders::RETRY_AFTER)
                     : Context::$RETRY_TIME_IN_SECONDS;
-
                 $retryAfter = (int)$retryAfter;
-                Log::info("Sleeping...".$retryAfter);
                 sleep($retryAfter);
             } else {
                 break;
