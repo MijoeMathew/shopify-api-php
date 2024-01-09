@@ -216,12 +216,13 @@ class Http
 
             $response = HttpResponse::fromResponse($client->sendRequest($request));
             Log::info("Retry: ".$response->getStatusCode()."::".$response->hasHeader(HttpHeaders::RETRY_AFTER).":::".$response->hasHeader("X-Shopify-Shop-Api-Call-Limit"));
+            Log::info(json_encode($response));
             if (in_array($response->getStatusCode(), self::RETRIABLE_STATUS_CODES)) {
                 $retryAfter = $response->hasHeader(HttpHeaders::RETRY_AFTER)
                     ? $response->getHeaderLine(HttpHeaders::RETRY_AFTER)
                     : Context::$RETRY_TIME_IN_SECONDS;
-                Log::info("Sleeping...".(int)($retryAfter)+1);
-                sleep(3);
+                Log::info("Sleeping...".$response->getStatusCode());
+                sleep(5);
             } else {
                 break;
             }
