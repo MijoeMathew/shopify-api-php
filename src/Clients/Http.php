@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\Utils;
 use Shopify\Context;
+use Illuminate\Support\Facades\Log;
 
 class Http
 {
@@ -167,6 +168,7 @@ class Http
         ?int $tries = null,
         string $dataType = self::DATA_TYPE_JSON
     ) {
+        Log::info("Mijoe Mathew Testing ".$tries);
         $maxTries = $tries ?? 1;
 
         $version = require dirname(__FILE__) . '/../version.php';
@@ -193,7 +195,7 @@ class Http
 
         $request = new Request($method, $url, $headers);
         $request = $request->withHeader(HttpHeaders::USER_AGENT, implode(' | ', $userAgentParts));
-
+        
         if ($body) {
             if (is_string($body)) {
                 $bodyString = $body;
