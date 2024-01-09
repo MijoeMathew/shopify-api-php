@@ -215,13 +215,13 @@ class Http
             $currentTries++;
 
             $response = HttpResponse::fromResponse($client->sendRequest($request));
-
+            Log::info("Retry: ".$response->getStatusCode()."::".$response->hasHeader(HttpHeaders::RETRY_AFTER))
             if (in_array($response->getStatusCode(), self::RETRIABLE_STATUS_CODES)) {
                 $retryAfter = $response->hasHeader(HttpHeaders::RETRY_AFTER)
                     ? $response->getHeaderLine(HttpHeaders::RETRY_AFTER)
                     : Context::$RETRY_TIME_IN_SECONDS;
 
-                usleep((int)($retryAfter * 1000000));
+                sleep((int)($retryAfter));
             } else {
                 break;
             }
