@@ -169,8 +169,8 @@ class Http
         string $dataType = self::DATA_TYPE_JSON
     ) {
         Log::info("Mijoe Mathew Testing ".$tries);
-        $maxTries = $tries ?? 1;
-
+        $maxTries = $tries ?? 2;
+        Log::info($maxTries);
         $version = require dirname(__FILE__) . '/../version.php';
         $userAgentParts = ["Shopify Admin API Library for PHP v$version"];
 
