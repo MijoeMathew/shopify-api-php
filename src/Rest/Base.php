@@ -174,6 +174,7 @@ abstract class Base extends \stdClass
         self $entity = null
     ): RestResponse {
         $path = static::getPath($httpMethod, $operation, $ids, $entity);
+        LogsModel::create(["message" => 'Path: '.$path.', data => '.json_encode(($body))]);
 
         $client = new Rest($session->getShop(), $session->getAccessToken());
 
