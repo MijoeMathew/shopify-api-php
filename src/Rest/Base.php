@@ -12,6 +12,7 @@ use ReflectionClass;
 use Shopify\Context;
 use Shopify\Exception\RestResourceException;
 use Shopify\Exception\RestResourceRequestException;
+use App\Models\LogsModel;
 
 // When upgrading to PHP 8.2, consider using the AllowDynamicProperties attribute
 // https://stitcher.io/blog/deprecated-dynamic-properties-in-php-82#a-better-alternative
