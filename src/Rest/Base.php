@@ -12,7 +12,7 @@ use ReflectionClass;
 use Shopify\Context;
 use Shopify\Exception\RestResourceException;
 use Shopify\Exception\RestResourceRequestException;
-use App\Models\LogsModel;
+//use App\Models\LogsModel;
 
 // When upgrading to PHP 8.2, consider using the AllowDynamicProperties attribute
 // https://stitcher.io/blog/deprecated-dynamic-properties-in-php-82#a-better-alternative
@@ -175,7 +175,7 @@ abstract class Base extends \stdClass
         self $entity = null
     ): RestResponse {
         $path = static::getPath($httpMethod, $operation, $ids, $entity);
-        LogsModel::create(["message" => 'Path: '.$path.', data => '.json_encode(($body))]);
+        //LogsModel::create(["message" => 'Path: '.$path.', data => '.json_encode(($body))]);
 
         $client = new Rest($session->getShop(), $session->getAccessToken());
 
