@@ -145,6 +145,22 @@ class Http
         );
     }
 
+
+    private function handleRateLimit(HttpResponse $response): void
+    {
+        if (!$response->hasHeader('X-Shopify-Shop-Api-Call-Limit')) {
+            return;
+        }
+    
+        $limitHeader = $response->getHeaderLine('X-Shopify-Shop-Api-Call-Limit');
+        [$used, $limit] = explode('/', $limitHeader);
+    
+        if ((int)$used >= ((int)$limit - 2)) {
+            // Sleep for a short duration (Shopify suggests up to 500ms)
+            usleep(500000); // 0.5 seconds
+        }
+    }
+    
     /**
      * Internally handles the logic for making requests.
      *
@@ -215,6 +231,7 @@ class Http
             $currentTries++;
 
             $response = HttpResponse::fromResponse($client->sendRequest($request));
+            $this->handleRateLimit($response);
 
             if (in_array($response->getStatusCode(), self::RETRIABLE_STATUS_CODES)) {
                 $retryAfter = $response->hasHeader(HttpHeaders::RETRY_AFTER)
