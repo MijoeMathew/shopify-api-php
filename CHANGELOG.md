@@ -7,6 +7,14 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## v6.0.0 - 2025-10-28
+- ⚠️ [Breaking] Remove `ApiVersion::LATEST` constant to prevent semver violations. The `apiVersion` parameter is now required in `Context::initialize()`. Developers must explicitly specify API versions. See the [migration guide](BREAKING_CHANGES_FOR_V6.md#removal-of-apiversionlatest-constant) for details.
+- [#425](https://github.com/Shopify/shopify-api-php/pull/425) [Patch] Add compliance webhook topics
+- [#433](https://github.com/Shopify/shopify-api-php/pull/433) [Minor] Add support for 2025-10 API version
+
+## v5.11.0 - 2025-07-10
+- [#418](https://github.com/Shopify/shopify-api-php/pull/416) [Minor] Add support for 2025-07 API version
+
 ## v5.10.0 - 2025-04-03
 - [#292](https://github.com/Shopify/shopify-api-php/pull/292) [Patch] Fix bug where null can be passed to param 3 of setcookie()
 - [#405](https://github.com/Shopify/shopify-api-php/pull/405) [Minor] Add support for 2025-04 API version
